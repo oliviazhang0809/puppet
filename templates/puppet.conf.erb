@@ -1,0 +1,19 @@
+[main]
+    logdir = /var/log/puppet
+    rundir = /var/run/puppet
+    vardir = /var/lib/puppet
+    ssldir = $vardir/ssl
+    basemodulepath = '$confdir/modules:$confdir/sites'
+    pluginsync = true
+    hiera_config = /etc/puppet/hiera.yaml
+
+[master]
+    ssl_client_header = SSL_CLIENT_S_DN
+    ssl_client_verify_header = SSL_CLIENT_VERIFY
+    autosign = /etc/puppet/autosign.conf
+
+[agent]
+    server = <%= scope.function_hiera(['puppet_hostname']) %>
+    classfile = $vardir/classes.txt
+    runinterval = 3600
+    splay = true
