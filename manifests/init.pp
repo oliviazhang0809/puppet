@@ -2,9 +2,14 @@
 #
 # This class installs and manages the Puppet client daemon.
 #
-class puppet {
+class puppet (
+  $server = $puppet::params::server,
+  $ensure = $puppet::params::ensure,
+  $box_type = $puppet::params::box_type,
+  $puppet_hostname = $puppet::params::puppet_hostname,
+  ) inherits puppet::params {
 
-  include puppet::install
-  include puppet::config
-  include puppet::service
+  class { 'puppet::install': } ->
+  class { 'puppet::config': } ->
+  class {'puppet::service': }
 }

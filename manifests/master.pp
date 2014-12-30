@@ -2,14 +2,13 @@
 #
 # This class installs and manages the Puppet server daemon.
 #
-class puppet::master(
-  $ensure = hiera('puppet_version')
-  ){
+class puppet::master {
 
   include puppet
+  require puppet::puppet_repos
 
   package { 'puppet-server':
-    ensure => $ensure,
+    ensure => $puppet::ensure,
   }
 
   file { [ '/etc/puppet', '/etc/puppet/modules' ]:

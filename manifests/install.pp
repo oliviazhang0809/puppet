@@ -1,10 +1,7 @@
 # == Class: puppet::install
 # DO NO CALL DIRECTLY
-class puppet::install (
-  $ensure = hiera('puppet_version')
-  ){
-
+class puppet::install {
   package { 'puppet':
-    ensure => $ensure,
+    ensure => $puppet::ensure,
   }
 }
